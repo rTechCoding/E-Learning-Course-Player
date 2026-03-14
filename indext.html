@@ -4,7 +4,111 @@
 <meta charset="UTF-8">
 <title>E-Learning Course Player</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
 
+body{
+    background:#f2f4f8;
+    height:100vh;
+}
+
+/* Layout */
+.wrapper{
+    display:flex;
+    height:100vh;
+}
+
+/* Sidebar */
+.sidebar{
+    width:320px;
+    background:#3f5be8;
+    color:#fff;
+    transition:width .3s ease;
+    overflow:hidden;
+    position:relative;
+}
+
+.sidebar.collapsed{ width:70px; }
+
+/* Header */
+.sidebar-header{
+    padding:16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.menu-toggle{
+    background:#fff;
+    color:#3f5be8;
+    border:none;
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:18px;
+}
+
+/* Course Menu */
+.course-menu{ padding:10px; }
+
+.course-item{
+    padding:12px;
+    border-radius:6px;
+    margin-bottom:6px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.course-item:hover{ background:rgba(255,255,255,.15); }
+
+.course-item.active{ background:rgba(255,255,255,.25); }
+
+.course-item.completed .check{
+    display:inline;
+}
+
+.course-icon{ min-width:22px; }
+
+.check{
+    margin-left:auto;
+    color:#00ff9c;
+    display:none;
+}
+
+/* Collapse behavior */
+.sidebar.collapsed .course-text{ display:none; }
+
+.sidebar.collapsed:hover{
+    width:320px;
+    position:absolute;
+    z-index:10;
+}
+
+.sidebar.collapsed:hover .course-text{ display:inline; }
+
+/* Content */
+.content{
+    flex:1;
+    padding:20px;
+    background:#fff;
+}
+
+/* Video */
+.video-container iframe{
+    width:100%;
+    height:100%;
+    min-height:500px;
+    border-radius:8px;
+}
+</style>
 
 </head>
 
