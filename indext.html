@@ -1,1 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>E-Learning Course Player</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <span class="course-text">INTRODUCTION TO BUSINESS</span>
+        </div>
+
+        <div class="course-menu">
+            <div class="course-item video-item active"
+                 data-video="dQw4w9WgXcQ">
+                <span class="course-icon">▶</span>
+                <span class="course-text">Chapter 1 – Introduction</span>
+                <span class="check">✔</span>
+            </div>
+
+            <div class="course-item video-item"
+                 data-video="ysz5S6PUM-U">
+                <span class="course-icon">▶</span>
+                <span class="course-text">Business Overview</span>
+                <span class="check">✔</span>
+            </div>
+
+            <div class="course-item video-item"
+                 data-video="ScMzIvxBSi4">
+                <span class="course-icon">▶</span>
+                <span class="course-text">Living System</span>
+                <span class="check">✔</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+        <div class="video-container">
+            <iframe id="player"
+                allow="autoplay; encrypted-media"
+                allowfullscreen></iframe>
+        </div>
+    </main>
+
+</div>
+
+<script>
+const sidebar = document.getElementById("sidebar");
+const menuToggle = document.getElementById("menuToggle");
+const items = document.querySelectorAll(".video-item");
+const player = document.getElementById("player");
+
+let currentIndex = 0;
+
+/* Load video */
+function playVideo(index){
+    items.forEach(i => i.classList.remove("active"));
+    items[index].classList.add("active");
+
+    player.src =
+        `https://www.youtube.com/embed/${items[index].dataset.video}?autoplay=1&enablejsapi=1`;
+
+    sidebar.classList.add("collapsed");
+    currentIndex = index;
+}
+
+/* Click lesson */
+items.forEach((item, index)=>{
+    item.addEventListener("click", ()=>{
+        playVideo(index);
+    });
+});
+
+/* Detect video end (YouTube) */
+window.addEventListener("message", e => {
+    if(e.data?.event === "onStateChange" && e.data.info === 0){
+        items[currentIndex].classList.add("completed");
+
+        if(items[currentIndex + 1]){
+            playVideo(currentIndex + 1);
+        }
+    }
+});
+
+/* Manual toggle */
+menuToggle.addEventListener("click", ()=>{
+    sidebar.classList.toggle("collapsed");
+});
+
+/* Auto load first */
+playVideo(0);
+</script>
+
+</body>
+</html>
